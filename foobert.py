@@ -34,13 +34,5 @@ try:
         n += n
         time.sleep(rand_timer)
 
-    """
-    sc.api_call(
-        "chat.postMessage",
-        channel="#general",
-        text="foo"
-    )
-    """
-
 except BaseException as e:
     print(e)
