@@ -19,7 +19,7 @@ try:
 
     for item in parsed_fortunes:
         for a, b in enumerate(item):
-            item[a] = b.replace('\n', ' '.lstrip(' '))
+            item[a] = b.replace('\n', ' ')
 
     while n <= len(parsed_fortunes) - 1:
         rand_timer = randint(600, 1800)
