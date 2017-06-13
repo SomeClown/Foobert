@@ -5,6 +5,7 @@ from slackclient import SlackClient
 from random import randint
 import time
 import click
+import json
 
 __author__ = "SomeClown"
 __license__ = "MIT"
@@ -15,6 +16,8 @@ __email__ = "teren@packetqueue.net"
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 EPILOG = 'Have a fun time throwing foo\'s at bars'
 
+slack_token = os.environ["SLACK_API_TOKEN"]
+sc = SlackClient(slack_token)
 
 @click.group(epilog=EPILOG, context_settings=CONTEXT_SETTINGS)
 def cli():
@@ -33,8 +36,7 @@ def fortune_spam(spam_file):
     :param spam_file: 
     :return: 
     """
-    slack_token = os.environ["SLACK_API_TOKEN"]
-    sc = SlackClient(slack_token)
+
     parsed_fortunes = []
     n = 0
     try:
@@ -63,7 +65,18 @@ def fortune_spam(spam_file):
         print('Not sure what shit the bed, but the shit looks like this:')
         print('\033[01;31m' + str(e))
 
+
+@click.command(options_metavar='[no options]', short_help='return a list of channels')
+def retrieve_channel():
+    foo = sc.api_call(
+        "channels.list"
+    )
+    channels = foo['channels']
+    for item in channels:
+        print(item['name'])
+
 cli.add_command(fortune_spam, 'spam')
+cli.add_command(retrieve_channel, 'channels')
 
 if __name__ == '__main__':
     try:
