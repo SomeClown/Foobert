@@ -59,12 +59,15 @@ def fortune_spam(spam_file):
             print(message)
             n += n
             time.sleep(rand_timer)
-
     except BaseException as e:
-        print(e)
+        print('Not sure what shit the bed, but the shit looks like this:')
+        print('\033[01;31m' + str(e))
 
 cli.add_command(fortune_spam, 'spam')
 
-
 if __name__ == '__main__':
-    cli()
+    try:
+        cli()
+    except TypeError as err:
+        print('Not sure what shit the bed (you probably fucked up), but the error is below:')
+        print('\033[01;31m' + str(err))
