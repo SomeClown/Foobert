@@ -19,6 +19,17 @@ EPILOG = 'Have a fun time throwing foo\'s at bars'
 slack_token = os.environ["SLACK_API_TOKEN"]
 sc = SlackClient(slack_token)
 
+color_black2 = "\033[1;30m{0}\033[00m"
+color_red2_on = "\033[01;31m"
+color_red2_off = "\33[00m"
+color_green2 = "\033[1;32m{0}\033[00m"
+color_yellow2 = "\033[1;33m{0}\033[00m"
+color_blue2 = "\033[1;34m{0}\033[00m"
+color_purple2 = "\033[1;35m{0}\033[00m"
+color_cyan2 = "\033[1;36m{0}\033[00m"
+color_white2 = "\033[1;37m{0}\033[00m"
+
+
 @click.group(epilog=EPILOG, context_settings=CONTEXT_SETTINGS)
 def cli():
     """
@@ -63,7 +74,7 @@ def fortune_spam(spam_file):
             time.sleep(rand_timer)
     except BaseException as e:
         print('Not sure what shit the bed, but the shit looks like this:')
-        print('\033[01;31m' + str(e))
+        print(color_red2_on + str(e) + color_red2_off)
 
 
 @click.command(options_metavar='[no options]', short_help='return a list of channels')
@@ -73,7 +84,7 @@ def retrieve_channel():
     )
     channels = foo['channels']
     for item in channels:
-        print(item['name'])
+        print(color_red2_on + item['name'] + color_red2_off + ': ' + item['purpose']['value'])
 
 cli.add_command(fortune_spam, 'spam')
 cli.add_command(retrieve_channel, 'channels')
@@ -83,4 +94,4 @@ if __name__ == '__main__':
         cli()
     except TypeError as err:
         print('Not sure what shit the bed (you probably fucked up), but the error is below:')
-        print('\033[01;31m' + str(err))
+        print(color_red2_on + str(err) + color_red2_off)
