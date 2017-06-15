@@ -39,15 +39,17 @@ def cli():
     pass
 
 
-@click.command(options_metavar='[spam file]', short_help='Spam a foo')
-@click.argument('spam_file', metavar=['file'])
-def fortune_spam(spam_file):
+@click.command(short_help='Spam a foo', help='#KeepCalmAndSpamOn')
+@click.argument('channel', metavar='[channel]')
+@click.argument('spam_file', metavar='[file]')
+def fortune_spam(channel, spam_file):
     """
-    The much vaunted 'spam' option. #KeepCalmAndSpamOn
-    :param spam_file: 
+    The much vaunted 'spam' option.
+    
+    :param channel: Which channel to send to
+    :param spam_file: Which file to pull fortunes from
     :return: 
     """
-
     parsed_fortunes = []
     n = 0
     try:
@@ -66,7 +68,7 @@ def fortune_spam(spam_file):
             message = ''.join(parsed_fortunes[rand_item])
             sc.api_call(
                 "chat.postMessage",
-                channel="#general",
+                channel=channel,
                 text=message
             )
             print(message)
@@ -90,8 +92,13 @@ cli.add_command(fortune_spam, 'spam')
 cli.add_command(retrieve_channel, 'channels')
 
 if __name__ == '__main__':
+    cli()
+    """
     try:
         cli()
     except TypeError as err:
-        print('Not sure what shit the bed (you probably fucked up), but the error is below:')
-        print(color_red2_on + str(err) + color_red2_off)
+        pass
+        #print('Not sure what shit the bed (you probably fucked up), but the error is below:')
+        #print(color_red2_on + str(err) + color_red2_off)
+    """
+
