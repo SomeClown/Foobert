@@ -92,13 +92,9 @@ cli.add_command(fortune_spam, 'spam')
 cli.add_command(retrieve_channel, 'channels')
 
 if __name__ == '__main__':
-    cli()
-    """
     try:
         cli()
     except TypeError as err:
-        pass
-        #print('Not sure what shit the bed (you probably fucked up), but the error is below:')
-        #print(color_red2_on + str(err) + color_red2_off)
-    """
+        print('Not sure what shit the bed (you probably fucked up), but the error is below:')
+        print(color_red2_on + str(err) + color_red2_off)
 
